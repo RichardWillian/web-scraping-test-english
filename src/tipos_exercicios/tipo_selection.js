@@ -13,6 +13,12 @@ const puppeteer = require("puppeteer");
 
     let data = await page.evaluate(async() => {
 
+        function delay(time) {
+            return new Promise(function(resolve) {
+                setTimeout(resolve, time)
+            });
+        }
+
         function recuperarObjDropdown(valorDropdown, exercicio, item) {
             var nomeDropdown = `(dropdown${valorDropdown})`;
             exercicio.questao += nomeDropdown;
@@ -35,53 +41,50 @@ const puppeteer = require("puppeteer");
 
         async function recuperarRespostas() {
 
+            objLog.peloMenosChegouAqui2 = "??";
+
             objLog.testando = true;
 
             $("#action-button").click();
 
-            objLog.peloMenosChegouAqui1 = "?";
+            await delay(4000);
 
-            setTimeout(function() {
+            $(".feedback-incorrect").each(function(index, item) {
 
-                objLog.peloMenosChegouAqui2 = "??";
+                objLog.peloMenosChegouAqui3 = "???";
 
-                $(".feedback-incorrect").each(function(index, item) {
+                var paragrafo = $(item).find("p")[0];
+                var filhosParagrafo = paragrafo.childNodes;
+                var linhaResposta = $(".findMe", filhosParagrafo).prevObject[0];
+                var textoLinhaResposta = $(linhaResposta)[0].innerHTML;
+                var respostas = textoLinhaResposta.replace("Correct answers: ", "").replace("Correct answer: ", "");
 
-                    objLog.peloMenosChegouAqui3 = "???";
+                var arrayRespostas = respostas.split("/");
 
-                    var paragrafo = $(item).find("p")[0];
-                    var filhosParagrafo = paragrafo.childNodes;
-                    var linhaResposta = $(".findMe", filhosParagrafo).prevObject[0];
-                    var textoLinhaResposta = $(linhaResposta)[0].innerHTML;
-                    var respostas = textoLinhaResposta.replace("Correct answers: ", "").replace("Correct answer: ", "");
+                arrayRespostas.forEach(function(resp, i) {
 
-                    var arrayRespostas = respostas.split("/");
+                    objLog = {
+                        "exercicio": index,
+                        "resposta": resp,
+                        "indexResposta": i,
+                        "dropdownCorrente": pagina.exercicios[index].dropdowns[i]
+                    };
 
+                    pagina.exercicios[index].dropdowns[i].opcoes.find((opc, ind) => {
 
-                    arrayRespostas.forEach(function(resp, i) {
+                        objLog.opcao = opc;
 
-                        objLog = {
-                            "exercicio": index,
-                            "resposta": resp,
-                            "indexResposta": i,
-                            "dropdownCorrente": pagina.exercicios[index].dropdowns[i]
-                        };
-
-                        pagina.exercicios[index].dropdowns[i].opcoes.find((opc, ind) => {
-
-                            objLog.opcao = opc;
-
-                            if (opc.valor.toLowerCase() === resp.toLowerCase()) {
-                                objLog.dropSeraModificada = pagina.exercicios[index].dropdowns[i].opcoes[ind];
-                                pagina.exercicios[index].dropdowns[i].opcoes[ind].correta = true;
-                                objLog.dropAposModificada = pagina.exercicios[index].dropdowns[i].opcoes[ind];
-                                return true;
-                            }
-                        });
+                        if (opc.valor.toLowerCase() === resp.toLowerCase()) {
+                            objLog.dropSeraModificada = pagina.exercicios[index].dropdowns[i].opcoes[ind];
+                            pagina.exercicios[index].dropdowns[i].opcoes[ind].correta = true;
+                            objLog.dropAposModificada = pagina.exercicios[index].dropdowns[i].opcoes[ind];
+                            return true;
+                        }
                     });
                 });
+            });
 
-            }, 5000);
+            objLog.peloMenosChegouAqui1 = "?";
         }
 
         pagina = {
@@ -151,11 +154,11 @@ const puppeteer = require("puppeteer");
 
         await recuperarQuestoes();
 
-        return objLog;
+        return pagina;
 
     });
 
-    console.log(data);
+    console.log(data.exercicios[0].dropdowns[0]);
 
-    //await browser.close();
+    await browser.close();
 })();
