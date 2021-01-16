@@ -1,0 +1,42 @@
+[{
+        "titulo": $("#the_title_h1").text().replace("\n", ""),
+        "descricao": $($("#exercises").find("h3")[0]).text(),
+        "exercicios": [
+
+        ]
+    },
+    {
+        "tipo": "selection",
+        "numero": 1,
+        "questao": "(dropdown1) you a teacher? B: Yes, I (dropdown2)",
+        "dropdowns": [{
+                "nome": "dropdwon1",
+                "opcoes": [{
+                        "valor": "Are",
+                        "correta": true
+                    },
+                    {
+                        "valor": "Is",
+                        "correta": false
+                    }
+                ]
+            },
+            {
+                "nome": "dropdwon2",
+                "opcoes": [{
+                        "valor": "Am",
+                        "correta": true
+                    },
+                    {
+                        "valor": "Are",
+                        "correta": false
+                    },
+                    {
+                        "valor": "Is",
+                        "correta": false
+                    }
+                ]
+            }
+        ]
+    }
+]
