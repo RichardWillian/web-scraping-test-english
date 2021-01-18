@@ -1,95 +1,15 @@
-const axios = require("axios");
-const fs = require("fs");
-const metodoBrowser = require("./metodo_browser");
+const tipoExerciciosSelection = require("./tipos_exercicios/tipo_selection");
+const tipoExerciciosInput = require("./tipos_exercicios/tipo_input");
 
-const BASE_URL = "https://test-english.com/";
+async function iniciarScrapping() {
 
-const slug = (str) => {
-    str = str.replace(/^\s+|\s+$/g, ''); // trim
-    str = str.toLowerCase();
+    let paginasTextEnglish = {};
 
-    // remove accents, swap ñ for n, etc
-    var from = "àáäâèéëêìíïîòóöôùúüûñç·/_,:;";
-    var to = "aaaaeeeeiiiioooouuuunc------";
-    for (var i = 0, l = from.length; i < l; i++) {
-        str = str.replace(new RegExp(from.charAt(i), 'g'), to.charAt(i));
-    }
+    paginasTextEnglish.questoesSelection = await tipoExerciciosSelection.recuperarQuestoesSelection();
 
-    str = str.replace(/[^a-z0-9 -]/g, '') // remove invalid chars
-        .replace(/\s+/g, '-') // collapse whitespace and replace by -
-        .replace(/-+/g, '-'); // collapse dashes
+    paginasTextEnglish.questoesInput = await tipoExerciciosInput.recuperarQuestoesInput();
 
-    return str;
+    console.log(JSON.stringify(paginasTextEnglish.questoesInput));
 }
 
-const recuperarPagina = () => {
-
-    const url = BASE_URL + path;
-
-    return axios.get(url).then((response) => response.data);
-}
-
-const escreverArquivo = (data, path) => {
-
-    const promiseCallback = (resolve, reject) => {
-
-        fs.writeFile(path, data, (error) => {
-            if (error) {
-                reject(error);
-                return;
-            }
-
-            resolve(true);
-        });
-    }
-
-    return new Promise(promiseCallback);
-}
-
-const getCachedPage = (path) => {
-    const filename = `cache/${slug(path)}.html`;
-
-    const promiseCallback = async(resolve) => {
-
-        const cachedHTML = await readFromFile(filename);
-
-        if (!cachedHTML) {
-            const html = await recuperarPagina(path);
-            escreverArquivo(html, filename)
-            resolve(html);
-            return;
-        }
-        resolve(cachedHTML);
-    }
-
-    return new Promise(promiseCallback);
-}
-
-const readFromFile = (filename) => {
-    const promiseCallback = async(resolve) => {
-
-        fs.readFile(filename, 'utf8', (error, contents) => {
-            if (error) {
-                console.error("Página ainda não está em Cache", error)
-                resolve(null)
-            }
-
-            resolve(contents);
-        });
-    }
-
-    return new Promise(promiseCallback);
-}
-
-const getPageItems = (html) => {
-
-
-    const promiseCallback = async(resolve) => {
-
-    }
-
-    return new Promise(promiseCallback);
-}
-
-const path = "grammar-points/a1/present-simple-forms-of-to-be/1/";
-getCachedPage(path).then(getPageItems).catch(console.error);
+iniciarScrapping();
