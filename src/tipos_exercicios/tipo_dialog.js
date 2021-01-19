@@ -33,29 +33,34 @@ function recuperarQuestoesDialog() {
 
                     await delay(4000);
 
-                    let contadorOrdemDialogo = -1;
+                    let contadorDialogo = 0;
+                    let contadorInput = 0;
+
                     $(".watupro-main-feedback").find("p").each((index, paragrafo) => {
 
                         if (paragrafo.innerHTML) {
+                            let paragrafoRespostaSingular = paragrafo.innerText.includes("Correct answers");
+                            let paragrafoRespostaPlural = paragrafo.innerText.includes("Correct answer");
 
-                            if (index % 2 == 0) {
-                                console.log(contadorOrdemDialogo);
-                                pagina.exercicios[0].dialogos[contadorOrdemDialogo].explicacao = paragrafo.innerHTML;
-                                console.log(pagina.exercicios[0].dialogos[contadorOrdemDialogo].explicacao)
-                            } else {
-                                contadorOrdemDialogo++;
+                            if (paragrafoRespostaSingular || paragrafoRespostaPlural) {
+                                contadorExercicios++;
                                 let linhaResposta = paragrafo.innerText.replace("Correct answers", "").replace("Correct answer", "");
 
                                 let resposta = linhaResposta.split(":")[1];
                                 let numeroInput = linhaResposta.split(":")[0].trim();
 
-                                pagina.exercicios[0].dialogos.forEach((dialogo) => {
-
-                                    if (dialogo.fala.includes(`(input${numeroInput})`)) {
-                                        let fala = dialogo.fala;
-                                        dialogo.fala = fala.replace(`(input${numeroInput})`, `(resposta:${resposta})`);
-                                    }
+                                pagina.exercicios[0].dialogos.forEach((dialogo, index) => {
+                                    dialogo.inputs.forEach((input, ind) => {
+                                        if (input.nome == `(input${numeroInput})`) {
+                                            contadorDialogo = index;
+                                            contadorInput = ind;
+                                            input.resposta = resposta;
+                                        }
+                                    });
                                 });
+
+                            } else {
+                                pagina.exercicios[0].dialogos[contadorDialogo].inputs[contadorInput].explicacao = paragrafo.innerHTML;
                             }
                         }
                     });
@@ -84,7 +89,7 @@ function recuperarQuestoesDialog() {
                             personagem: paragrafo.innerText.split(":")[0],
                             ordem: index + 1,
                             fala: "",
-                            explicacao: ""
+                            inputs: [],
                         }
 
                         let posicaoInput = 0;
@@ -102,7 +107,18 @@ function recuperarQuestoesDialog() {
                                     }
                                     break;
                                 case "INPUT":
+                                    let input = {
+                                        posicao: 0,
+                                        nome: "",
+                                        resposta: "",
+                                        explicacao: ""
+                                    }
+
+                                    input.nome = `(input${posicaoInput})`;
+                                    input.posicao = posicaoInput;
+
                                     dialogo.fala += ` (input${posicaoInput}) `;
+                                    dialogo.inputs.push(input);
                                     break;
                             }
                         });
