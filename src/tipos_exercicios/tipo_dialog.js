@@ -43,7 +43,6 @@ function recuperarQuestoesDialog() {
                             let paragrafoRespostaPlural = paragrafo.innerText.includes("Correct answer");
 
                             if (paragrafoRespostaSingular || paragrafoRespostaPlural) {
-                                contadorExercicios++;
                                 let linhaResposta = paragrafo.innerText.replace("Correct answers", "").replace("Correct answer", "");
 
                                 let resposta = linhaResposta.split(":")[1];
