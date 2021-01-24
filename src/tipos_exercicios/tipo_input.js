@@ -54,23 +54,25 @@ function recuperarQuestoesInput() {
                                 let respostas = [];
                                 var explicacoes = [];
 
-                                let linhaInformacoesSplitada = linhaInformacoesHTML.split("<br>");
+                                let linhaInformacoesSplitada = linhaInformacoesHTML.replace("&nbsp;", "").split("<br>");
 
                                 linhaInformacoesSplitada.forEach((informacaoSplitada) => {
 
-                                    let $informacaoSplitada = $(informacaoSplitada)[0];
+                                    if (informacaoSplitada != "") {
+                                        let $informacaoSplitada = $(informacaoSplitada)[0];
 
-                                    if ($informacaoSplitada.innerText != "") {
+                                        if ($informacaoSplitada.innerText != "") {
 
-                                        let linhaResposta = $informacaoSplitada.innerText.replace("Correct answers", "").replace("Correct answer", "").replace(": ", "");
-                                        linhaResposta.split("  ").forEach((resp) => {
-                                            respostas.push({
-                                                nome: `(input${++contadorResposta})`,
-                                                valor: resp
+                                            let linhaResposta = $informacaoSplitada.innerText.replace("Correct answers", "").replace("Correct answer", "").replace(": ", "");
+                                            linhaResposta.split("  ").forEach((resp) => {
+                                                respostas.push({
+                                                    nome: `(input${++contadorResposta})`,
+                                                    valor: resp
+                                                });
                                             });
-                                        });
-                                    } else {
-                                        explicacoes.push({ nome: `(input${++contadorExplicacao})`, valor: informacaoSplitada });
+                                        } else {
+                                            explicacoes.push({ nome: `(input${++contadorExplicacao})`, valor: informacaoSplitada });
+                                        }
                                     }
                                 });
 
@@ -82,7 +84,10 @@ function recuperarQuestoesInput() {
 
                                             if (input.nome == resposta.nome) {
                                                 input.resposta = resposta.valor;
-                                                input.explicacao = explicacoes[i].valor;
+
+                                                if (explicacoes[i]) {
+                                                    input.explicacao = explicacoes[i].valor;
+                                                }
                                             }
                                         });
 
