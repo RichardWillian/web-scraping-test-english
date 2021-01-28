@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 const utils = require("../utils")
 
-function recuperarQuestoesDialog() {
+function recuperarQuestoesDialogo() {
 
     return new Promise(async function(resolve) {
 
@@ -158,6 +158,4 @@ function recuperarQuestoesDialog() {
     });
 }
 
-recuperarQuestoesDialog();
-
-module.exports = { recuperarQuestoesDialog }
+module.exports = { recuperarQuestoesDialogo }

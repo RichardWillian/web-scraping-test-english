@@ -1,7 +1,7 @@
 const puppeteer = require("puppeteer");
 const utils = require("../utils")
 
-function recuperarQuestoesInput() {
+function recuperarQuestoesInputCarta() {
 
     return new Promise(async function(resolve) {
 
@@ -172,4 +172,4 @@ function recuperarQuestoesInput() {
     });
 }
 
-module.exports = { recuperarQuestoesInput }
+module.exports = { recuperarQuestoesInputCarta }

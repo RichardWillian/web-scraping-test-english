@@ -1,5 +1,10 @@
+const tipoExerciciosDialogo = require("./tipos_exercicios/tipo_dialogo");
 const tipoExerciciosSelection = require("./tipos_exercicios/tipo_selection");
-const tipoExerciciosInput = require("./tipos_exercicios/tipo_input");
+const tipoExerciciosInputComum = require("./tipos_exercicios/tipo_input_comum");
+const tipoExerciciosInputCarta = require("./tipos_exercicios/tipo_input_carta");
+const tipoExerciciosMultiplaEscolha = require("./tipos_exercicios/tipo_multipla_escolha");
+
+const fs = require('fs');
 
 async function iniciarScrapping() {
 
@@ -7,9 +12,16 @@ async function iniciarScrapping() {
 
     paginasTextEnglish.questoesSelection = await tipoExerciciosSelection.recuperarQuestoesSelection();
 
-    paginasTextEnglish.questoesInput = await tipoExerciciosInput.recuperarQuestoesInput();
+    paginasTextEnglish.questoesInputComum = await tipoExerciciosInputComum.recuperarQuestoesInputComum();
 
-    console.log(JSON.stringify(paginasTextEnglish.questoesInput));
+    paginasTextEnglish.questoesInputCarta = await tipoExerciciosInputCarta.recuperarQuestoesInputCarta();
+
+    paginasTextEnglish.questoesMultiplaEscolha = await tipoExerciciosMultiplaEscolha.recuperarQuestoesMultiplaEscolha();
+
+    paginasTextEnglish.questoesDialogo = await tipoExerciciosDialogo.recuperarQuestoesDialogo();
+
+
+    fs.writeFileSync('./exemplo_objeto.json', JSON.stringify(paginasTextEnglish));
 }
 
 iniciarScrapping();
