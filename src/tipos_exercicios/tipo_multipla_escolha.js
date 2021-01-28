@@ -9,6 +9,14 @@ function recuperarQuestoesMultiplaEscolha() {
 
         let urls = [
             'https://test-english.com/grammar-points/a1/this-that-these-those/2/',
+            'https://test-english.com/grammar-points/a1/possessive-adjectives/2/',
+            'https://test-english.com/grammar-points/a1/adjectives/2/',
+            'https://test-english.com/grammar-points/a1/questions/',
+            'https://test-english.com/grammar-points/a1/adverbs-frequency/',
+            'https://test-english.com/grammar-points/a1/adverbs-frequency/2/',
+            'https://test-english.com/grammar-points/a1/whose-possessive-s/2/',
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/2/',
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/2/'
         ]
 
         urls.forEach(async(url) => {
@@ -29,6 +37,8 @@ function recuperarQuestoesMultiplaEscolha() {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
+                    dicas: $("#exercises").find(".textBox")[0].innerHTML,
+                    exemplo: $("#exercises").find("em")[0].innerHTML,
                     exercicios: []
                 }
 

@@ -9,6 +9,8 @@ function recuperarQuestoesInputCarta() {
 
         let urls = [
             'https://test-english.com/grammar-points/a2/present-simple-continuous/3/',
+            'https://test-english.com/grammar-points/a1/present-simple/4/',
+
         ]
 
         urls.forEach(async(url) => {
@@ -31,6 +33,8 @@ function recuperarQuestoesInputCarta() {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
+                    exemplo: $("#exercises").find("em")[0].innerHTML,
+                    dicas: $("#exercises").find(".textBox")[0].innerHTML,
                     exercicios: []
                 }
 

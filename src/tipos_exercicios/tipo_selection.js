@@ -9,7 +9,16 @@ function recuperarQuestoesSelection() {
 
         let urls_selection = [
             'https://test-english.com/grammar-points/a1/present-simple-forms-of-to-be',
-            'https://test-english.com/grammar-points/a1/this-that-these-those/'
+            'https://test-english.com/grammar-points/a1/this-that-these-those/',
+            'https://test-english.com/grammar-points/a1/possessive-adjectives/',
+            'https://test-english.com/grammar-points/a1/possessive-adjectives/',
+            'https://test-english.com/grammar-points/a1/a-an-plurals/',
+            'https://test-english.com/grammar-points/a1/adjectives/',
+            'https://test-english.com/grammar-points/a1/present-simple/',
+            'https://test-english.com/grammar-points/a1/object-pronouns/',
+            'https://test-english.com/grammar-points/a1/whose-possessive-s/',
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/',
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/'
         ]
 
         urls_selection.forEach(async(url) => {
@@ -100,6 +109,8 @@ function recuperarQuestoesSelection() {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
+                    exemplo: $("#exercises").find("em")[0].innerHTML,
+                    dicas: $("#exercises").find(".textBox")[0].innerHTML,
                     exercicios: []
                 }
 

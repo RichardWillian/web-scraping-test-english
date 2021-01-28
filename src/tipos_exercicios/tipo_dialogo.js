@@ -8,7 +8,9 @@ function recuperarQuestoesDialogo() {
         let paginas = [];
 
         let urls = [
+            'https://test-english.com/grammar-points/a1/present-simple-forms-of-to-be/4/',
             'https://test-english.com/grammar-points/b1/future-forms/3/',
+
         ]
 
         urls.forEach(async(url) => {
@@ -69,6 +71,8 @@ function recuperarQuestoesDialogo() {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
+                    exemplo: $("#exercises").find("em")[0].innerHTML,
+                    dicas: $("#exercises").find(".textBox")[0].innerHTML,
                     exercicios: []
                 }
 

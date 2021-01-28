@@ -9,6 +9,23 @@ function recuperarQuestoesInputComum() {
 
         let urls = [
             'https://test-english.com/grammar-points/a1/present-simple-forms-of-to-be/2/',
+            'https://test-english.com/grammar-points/a1/present-simple-forms-of-to-be/3/',
+            'https://test-english.com/grammar-points/a1/this-that-these-those/3/',
+            'https://test-english.com/grammar-points/a1/possessive-adjectives/3/',
+            'https://test-english.com/grammar-points/a1/a-an-plurals/2/',
+            'https://test-english.com/grammar-points/a1/a-an-plurals/3/',
+            'https://test-english.com/grammar-points/a1/adjectives/3/',
+            'https://test-english.com/grammar-points/a1/present-simple/2/',
+            'https://test-english.com/grammar-points/a1/present-simple/3/',
+            'https://test-english.com/grammar-points/a1/questions/2/',
+            'https://test-english.com/grammar-points/a1/questions/3/',
+            'https://test-english.com/grammar-points/a1/questions/4/',
+            'https://test-english.com/grammar-points/a1/adverbs-frequency/3/',
+            'https://test-english.com/grammar-points/a1/object-pronouns/2/',
+            'https://test-english.com/grammar-points/a1/object-pronouns/3/',
+            'https://test-english.com/grammar-points/a1/whose-possessive-s/3/',
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/3/',
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/3/'
         ]
 
         urls.forEach(async(url) => {
@@ -31,6 +48,8 @@ function recuperarQuestoesInputComum() {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
+                    exemplo: $("#exercises").find("em")[0].innerHTML,
+                    dicas: $("#exercises").find(".textBox")[0].innerHTML,
                     exercicios: []
                 }
 
