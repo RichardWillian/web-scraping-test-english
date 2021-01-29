@@ -12,13 +12,13 @@ async function iniciarScrapping() {
 
     paginasTextEnglish.questoesSelection = await tipoExerciciosSelection.recuperarQuestoesSelection();
 
-    paginasTextEnglish.questoesInputComum = await tipoExerciciosInputComum.recuperarQuestoesInputComum();
+    /*paginasTextEnglish.questoesInputComum = await tipoExerciciosInputComum.recuperarQuestoesInputComum();
 
     paginasTextEnglish.questoesInputCarta = await tipoExerciciosInputCarta.recuperarQuestoesInputCarta();
 
     paginasTextEnglish.questoesMultiplaEscolha = await tipoExerciciosMultiplaEscolha.recuperarQuestoesMultiplaEscolha();
 
-    paginasTextEnglish.questoesDialogo = await tipoExerciciosDialogo.recuperarQuestoesDialogo();
+    paginasTextEnglish.questoesDialogo = await tipoExerciciosDialogo.recuperarQuestoesDialogo();*/
 
 
     fs.writeFileSync('./exemplo_objeto.json', JSON.stringify(paginasTextEnglish));

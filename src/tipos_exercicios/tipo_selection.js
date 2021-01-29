@@ -11,7 +11,6 @@ function recuperarQuestoesSelection() {
             'https://test-english.com/grammar-points/a1/present-simple-forms-of-to-be',
             'https://test-english.com/grammar-points/a1/this-that-these-those/',
             'https://test-english.com/grammar-points/a1/possessive-adjectives/',
-            'https://test-english.com/grammar-points/a1/possessive-adjectives/',
             'https://test-english.com/grammar-points/a1/a-an-plurals/',
             'https://test-english.com/grammar-points/a1/adjectives/',
             'https://test-english.com/grammar-points/a1/present-simple/',
@@ -105,12 +104,15 @@ function recuperarQuestoesSelection() {
                     objLog.peloMenosChegouAqui1 = "?";
                 }
 
+                let possuiExemplo = $("#exercises").find("em")[0]?.innerHTML?.includes("EXAMPLE");
+                let exemplo = possuiExemplo ? $("#exercises").find("em")[0]?.innerHTML : $("#exercises").find("em")[1]?.innerHTML;
+
                 pagina = {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
-                    exemplo: $("#exercises").find("em")[0].innerHTML,
-                    dicas: $("#exercises").find(".textBox")[0].innerHTML,
+                    exemplo: exemplo,
+                    dicas: $("#exercises").find(".textBox")[0]?.innerHTML,
                     exercicios: []
                 }
 

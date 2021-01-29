@@ -67,12 +67,15 @@ function recuperarQuestoesDialogo() {
                     });
                 }
 
+                let possuiExemplo = $("#exercises").find("em")[0]?.innerHTML?.includes("EXAMPLE");
+                let exemplo = possuiExemplo ? $("#exercises").find("em")[0]?.innerHTML : $("#exercises").find("em")[1]?.innerHTML;
+
                 let pagina = {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
-                    exemplo: $("#exercises").find("em")[0].innerHTML,
-                    dicas: $("#exercises").find(".textBox")[0].innerHTML,
+                    exemplo: exemplo,
+                    dicas: $("#exercises").find(".textBox")[0]?.innerHTML,
                     exercicios: []
                 }
 
