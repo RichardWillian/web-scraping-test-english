@@ -160,7 +160,6 @@ function recuperarQuestoesDialogo() {
         while (true) {
 
             if (paginas.length == urls.length) {
-                console.log(JSON.stringify(paginas));
                 resolve(paginas);
                 return;
             }
