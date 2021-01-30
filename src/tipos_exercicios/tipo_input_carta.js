@@ -30,8 +30,12 @@ function recuperarQuestoesInputCarta() {
                     });
                 }
 
-                let possuiExemplo = $("#exercises").find("em")[0]?.innerHTML?.includes("EXAMPLE");
-                let exemplo = possuiExemplo ? $("#exercises").find("em")[0]?.innerHTML : $("#exercises").find("em")[1]?.innerHTML;
+                let exemplo = "";
+                $("#exercises").find("em").each((index, $em) => {
+                    if($em?.innerHTML?.includes("EXAMPLE")) {
+                        exemplo = $em?.innerHTML;
+                    }
+                });
 
                 let pagina = {
                     url: window.location.href,

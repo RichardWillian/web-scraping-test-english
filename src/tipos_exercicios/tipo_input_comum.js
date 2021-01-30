@@ -45,8 +45,12 @@ function recuperarQuestoesInputComum() {
                     });
                 }
 
-                let possuiExemplo = $("#exercises").find("em")[0]?.innerHTML?.includes("EXAMPLE");
-                let exemplo = possuiExemplo ? $("#exercises").find("em")[0]?.innerHTML : $("#exercises").find("em")[1]?.innerHTML;
+                let exemplo = "";
+                $("#exercises").find("em").each((index, $em) => {
+                    if($em?.innerHTML?.includes("EXAMPLE")) {
+                        exemplo = $em?.innerHTML;
+                    }
+                });
 
                 let pagina = {
                     url: window.location.href,
@@ -87,8 +91,17 @@ function recuperarQuestoesInputComum() {
 
                                         if ($informacaoSplitada.innerText != "") {
 
-                                            let linhaResposta = $informacaoSplitada.innerText.replace("Correct answers", "").replace("Correct answer", "").replace(": ", "");
-                                            linhaResposta.split("  ").forEach((resp) => {
+                                            let linhaResposta = $informacaoSplitada.innerText.replace("Correct answers", "")
+                                                linhaResposta = linhaResposta.replace("Correct answer", "")
+                                                linhaResposta = linhaResposta.replace(": ", "");
+                                            
+                                            let arrayLinhaRespostas = linhaResposta.split("  ");
+
+                                            if(arrayLinhaRespostas.length == 1){
+                                                arrayLinhaRespostas = linhaResposta.split("/");
+                                            }
+                                            
+                                            arrayLinhaRespostas.forEach((resp) => {
                                                 respostas.push({
                                                     nome: `(input${++contadorResposta})`,
                                                     valor: resp
