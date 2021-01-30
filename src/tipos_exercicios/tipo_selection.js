@@ -17,7 +17,9 @@ function recuperarQuestoesSelection() {
             'https://test-english.com/grammar-points/a1/object-pronouns/',
             'https://test-english.com/grammar-points/a1/whose-possessive-s/',
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/',
-            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/'
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/',
+            'https://test-english.com/grammar-points/a1/can-cant/',
+            
         ]
 
         

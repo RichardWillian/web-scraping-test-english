@@ -25,7 +25,8 @@ function recuperarQuestoesInputComum() {
             'https://test-english.com/grammar-points/a1/object-pronouns/3/',
             'https://test-english.com/grammar-points/a1/whose-possessive-s/3/',
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/3/',
-            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/3/'
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/3/',
+            'https://test-english.com/grammar-points/a1/can-cant/2/'
         ]
 
         urls.forEach(async(url) => {
@@ -173,6 +174,13 @@ function recuperarQuestoesInputComum() {
 
                                     exercicio.textoQuestao += ` (input${posicaoInput}) `;
                                     exercicio.inputs.push(input);
+                                    break;
+                                case "I":
+                                    if (elemento.outerHTML.includes("fa-plus-circle")) {
+                                        exercicio.textoQuestao += "(+)";
+                                    } else if (elemento.outerHTML.includes("fa-minus-circle")) {
+                                        exercicio.textoQuestao += "(-)";
+                                    }
                                     break;
                             }
                         });
