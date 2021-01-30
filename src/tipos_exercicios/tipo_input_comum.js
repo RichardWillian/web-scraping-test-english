@@ -34,6 +34,7 @@ function recuperarQuestoesInputComum() {
 
             let browser = await puppeteer.launch();
             let page = await browser.newPage();
+            await page.setDefaultNavigationTimeout(0);
             await page.goto(url, { waitUntil: "networkidle2" });
 
             let data = await page.evaluate(async() => {
@@ -48,6 +49,7 @@ function recuperarQuestoesInputComum() {
                 let exemplo = possuiExemplo ? $("#exercises").find("em")[0]?.innerHTML : $("#exercises").find("em")[1]?.innerHTML;
 
                 let pagina = {
+                    url: window.location.href,
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),

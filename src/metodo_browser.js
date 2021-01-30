@@ -3,6 +3,7 @@ var pagina = null;
 function recuperarElementosPagina() {
 
     pagina = {
+        url: window.location.href,
         titulo: $("#the_title_h1").text().replace("\n", ""),
         texto_exercicio: $($("#exercises").find("h3")[0]).text(),
         enunciado: $($("#exercises").find("h5")[0]).text(),

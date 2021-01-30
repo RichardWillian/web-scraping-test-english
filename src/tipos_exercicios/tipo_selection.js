@@ -20,14 +20,16 @@ function recuperarQuestoesSelection() {
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/'
         ]
 
+        
         urls_selection.forEach(async(url) => {
-
             console.log(`Início Scrapping: ${url}`);
-
+            
             let browser = await puppeteer.launch();
             let page = await browser.newPage();
+            
+            await page.setDefaultNavigationTimeout(0);
             await page.goto(url, { waitUntil: "networkidle2" });
-
+            
             let data = await page.evaluate(async() => {
 
                 function delay(time) {
@@ -58,56 +60,67 @@ function recuperarQuestoesSelection() {
 
                 async function recuperarRespostas() {
 
-                    objLog.peloMenosChegouAqui2 = "??";
-
-                    objLog.testando = true;
-
                     $("#action-button").click();
 
                     await delay(4000);
 
-                    $(".feedback-incorrect").each(function(index, item) {
+                    let indexIncorreto = false;
+                    $(".watupro-main-feedback").find("p").each((index, paragrafo) => {
+                        let arrayRespostas = [];
+                        let arrayExplicacoes = [];
 
-                        objLog.peloMenosChegouAqui3 = "???";
+                        if(indexIncorreto || paragrafo.innerText.trim() == "") {
+                            --index;
+                            indexIncorreto = true;
+                        }
 
-                        var paragrafo = $(item).find("p")[0];
-                        var filhosParagrafo = paragrafo.childNodes;
-                        var linhaResposta = $(".findMe", filhosParagrafo).prevObject[0];
-                        var textoLinhaResposta = $(linhaResposta)[0].innerHTML;
-                        var respostas = textoLinhaResposta.replace("Correct answers: ", "").replace("Correct answer: ", "");
+                        if (paragrafo.innerHTML) {
+                            let linhaInformacoesHTML = paragrafo.innerHTML;
+                            
+                            let linhaInformacoesSplitada = linhaInformacoesHTML.replace("&nbsp;", "").split("<br>");
+                            
+                            linhaInformacoesSplitada.forEach((informacaoSplitada) => {
 
-                        var arrayRespostas = respostas.split("/");
+                                if (informacaoSplitada != "") {
+
+                                    let paragrafoRespostaSingular = informacaoSplitada.includes("Correct answer");
+                                    let paragrafoRespostaPlural = informacaoSplitada.includes("Correct answers");
+
+                                    if (paragrafoRespostaSingular || paragrafoRespostaPlural) {
+                                        let linhaResposta = $(informacaoSplitada)[0].innerText;
+                                            linhaResposta = linhaResposta.replace("Correct answers", "")
+                                            linhaResposta = linhaResposta.replace("Correct answer", "")
+                                            linhaResposta = linhaResposta.replace(": ", "");
+                                            arrayRespostas = linhaResposta.split("/");
+                                    } else {
+                                        arrayExplicacoes.push(informacaoSplitada);
+                                    }
+                                }
+                            });
+                        }
 
                         arrayRespostas.forEach(function(resp, i) {
-
-                            objLog = {
-                                "exercicio": index,
-                                "resposta": resp,
-                                "indexResposta": i,
-                                "dropdownCorrente": pagina.exercicios[index].dropdowns[i]
-                            };
-
-                            pagina.exercicios[index].dropdowns[i].opcoes.find((opc, ind) => {
-
-                                objLog.opcao = opc;
-
+                            pagina.exercicios[index]?.dropdowns[i].opcoes.find((opc, ind) => {
+                                
                                 if (opc.valor.toLowerCase() === resp.toLowerCase()) {
-                                    objLog.dropSeraModificada = pagina.exercicios[index].dropdowns[i].opcoes[ind];
                                     pagina.exercicios[index].dropdowns[i].opcoes[ind].correta = true;
-                                    objLog.dropAposModificada = pagina.exercicios[index].dropdowns[i].opcoes[ind];
+                                    pagina.exercicios[index].dropdowns[i].opcoes[ind].explicacao = arrayExplicacoes[ind];
+
+                                    if(!arrayExplicacoes[ind])
+                                        pagina.exercicios[index].dropdowns[i].opcoes[ind].explicacao = arrayExplicacoes.pop();
+
                                     return true;
                                 }
                             });
                         });
                     });
-
-                    objLog.peloMenosChegouAqui1 = "?";
                 }
 
                 let possuiExemplo = $("#exercises").find("em")[0]?.innerHTML?.includes("EXAMPLE");
                 let exemplo = possuiExemplo ? $("#exercises").find("em")[0]?.innerHTML : $("#exercises").find("em")[1]?.innerHTML;
 
                 pagina = {
+                    url: window.location.href,
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
@@ -117,56 +130,58 @@ function recuperarQuestoesSelection() {
                 }
 
                 async function recuperarQuestoes() {
-                    var formulario = document.getElementsByClassName("quiz-form")[0];
-                    var questoesFormulario = formulario.getElementsByClassName("watu-question");
+                    try {
+                        var formulario = document.getElementsByClassName("quiz-form")[0];
+                        var questoesFormulario = formulario.getElementsByClassName("watu-question");
 
-                    questoesFormulario.forEach(function(questao, index) {
+                        questoesFormulario.forEach(function(questao, index) {
 
-                        var paragrafos = $(questao).find("p");
+                            var paragrafos = $(questao).find("p");
 
-                        var exercicio = {
-                            numero: index + 1,
-                            tipo: "selection",
-                            questao: "",
-                            dropdowns: []
-                        }
-
-                        for (var i = 0; i < paragrafos.length; i++) {
-
-                            var paragrafo = paragrafos[i];
-                            var elementosDentroParagrafo = paragrafo.childNodes;
-                            var elementosTagHTML = $('.FindMe', elementosDentroParagrafo);
-                            var itens = elementosTagHTML.prevObject;
-
-                            var valorDropdown = 0;
-
-                            for (var j = 0; j < itens.length; j++) {
-                                var item = $(itens[j])[0];
-
-                                switch (item.nodeName) {
-                                    case "#text":
-                                        exercicio.questao += item.nodeValue;
-                                        break;
-                                    case "SELECT":
-                                        valorDropdown++;
-
-                                        var objDropdown = recuperarObjetoDropdown(valorDropdown, exercicio, item);
-
-                                        exercicio.dropdowns.push(objDropdown);
-                                        break;
-                                    case "INPUT":
-                                        exercicio.questao += "(input)"
-                                        break;
-                                }
+                            var exercicio = {
+                                numero: index + 1,
+                                tipo: "selection",
+                                questao: "",
+                                dropdowns: []
                             }
 
-                            pagina.exercicios.push(exercicio);
-                        }
-                    });
+                            for (var i = 0; i < paragrafos.length; i++) {
 
-                    console.log("Terminou ");
-                    await recuperarRespostas();
-                    console.log("Terminou 2");
+                                var paragrafo = paragrafos[i];
+                                var elementosDentroParagrafo = paragrafo.childNodes;
+                                var elementosTagHTML = $('.FindMe', elementosDentroParagrafo);
+                                var itens = elementosTagHTML.prevObject;
+
+                                var valorDropdown = 0;
+
+                                for (var j = 0; j < itens.length; j++) {
+                                    var item = $(itens[j])[0];
+
+                                    switch (item.nodeName) {
+                                        case "#text":
+                                            exercicio.questao += item.nodeValue;
+                                            break;
+                                        case "SELECT":
+                                            valorDropdown++;
+
+                                            var objDropdown = recuperarObjetoDropdown(valorDropdown, exercicio, item);
+
+                                            exercicio.dropdowns.push(objDropdown);
+                                            break;
+                                        case "INPUT":
+                                            exercicio.questao += "(input)"
+                                            break;
+                                    }
+                                }
+
+                                pagina.exercicios.push(exercicio);
+                            }
+                        });
+
+                        await recuperarRespostas();
+                    } catch (ex) {
+                        console.log(ex, "Erro no exercício" + JSON.stringify(pagina));
+                    }
                 }
 
                 await recuperarQuestoes();
@@ -190,7 +205,7 @@ function recuperarQuestoesSelection() {
                 return;
             }
 
-            await utils.delay(1000)
+            await utils.delay(1000);
             console.log(`Segundos ${contador++}`);
         }
     });
