@@ -41,13 +41,30 @@ function recuperarQuestoesMultiplaEscolha() {
                     }
                 });
 
+                let srcImagemExemplo;
+                let srcImagemExercicio;
+
+                $("#exercises").find("img").each((index, img) => {
+                    let imagemLoading = "img/loading.gif";
+                    let srcImagem = $(img).attr('src');
+
+                    if(!srcImagem.includes(imagemLoading)) {
+                        if (index == 0) srcImagemExercicio = srcImagem;
+                        else if (index == 1) srcImagemExemplo = srcImagem;
+                    }
+                });
+
                 let pagina = {
                     url: window.location.href,
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
                     dicas: $("#exercises").find(".textBox")[0]?.innerHTML,
-                    exemplo: exemplo,
+                    imagemExercicio: srcImagemExercicio,
+                    exemplo: {
+                        descricao: exemplo,
+                        imagem: srcImagemExemplo
+                    },
                     exercicios: []
                 }
 

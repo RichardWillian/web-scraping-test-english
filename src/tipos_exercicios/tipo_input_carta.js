@@ -10,7 +10,7 @@ function recuperarQuestoesInputCarta() {
         let urls = [
             'https://test-english.com/grammar-points/a2/present-simple-continuous/3/',
             'https://test-english.com/grammar-points/a1/present-simple/4/',
-
+            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/3/'
         ]
 
         urls.forEach(async(url) => {
@@ -30,10 +30,23 @@ function recuperarQuestoesInputCarta() {
                     });
                 }
 
-                let exemplo = "";
+                let exemplo;
                 $("#exercises").find("em").each((index, $em) => {
                     if($em?.innerHTML?.includes("EXAMPLE")) {
                         exemplo = $em?.innerHTML;
+                    }
+                });
+                
+                let srcImagemExemplo;
+                let srcImagemExercicio;
+
+                $("#exercises").find("img").each((index, img) => {
+                    let imagemLoading = "img/loading.gif";
+                    let srcImagem = $(img).attr('src');
+
+                    if(!srcImagem.includes(imagemLoading)) {
+                        if (index == 0) srcImagemExercicio = srcImagem;
+                        else if (index == 1) srcImagemExemplo = srcImagem;
                     }
                 });
 
@@ -42,7 +55,11 @@ function recuperarQuestoesInputCarta() {
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
-                    exemplo: exemplo,
+                    imagemExercicio: srcImagemExercicio,
+                    exemplo: {
+                        descricao: exemplo,
+                        imagem: srcImagemExemplo
+                    },
                     dicas: $("#exercises").find(".textBox")[0]?.innerHTML,
                     exercicios: []
                 }

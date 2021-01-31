@@ -19,7 +19,7 @@ function recuperarQuestoesSelection() {
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/',
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/',
             'https://test-english.com/grammar-points/a1/can-cant/',
-            
+            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/'
         ]
 
         
@@ -125,12 +125,29 @@ function recuperarQuestoesSelection() {
                     }
                 });
 
-                pagina = {
+                let srcImagemExemplo;
+                let srcImagemExercicio;
+
+                $("#exercises").find("img").each((index, img) => {
+                    let imagemLoading = "img/loading.gif";
+                    let srcImagem = $(img).attr('src');
+
+                    if(!srcImagem.includes(imagemLoading)) {
+                        if (index == 0) srcImagemExercicio = srcImagem;
+                        else if (index == 1) srcImagemExemplo = srcImagem;
+                    }
+                });
+
+                let pagina = {
                     url: window.location.href,
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
-                    exemplo: exemplo,
+                    imagemExercicio: srcImagemExercicio,
+                    exemplo: {
+                        descricao: exemplo,
+                        imagem: srcImagemExemplo
+                    },
                     dicas: $("#exercises").find(".textBox")[0]?.innerHTML,
                     exercicios: []
                 }

@@ -10,7 +10,9 @@ function recuperarQuestoesDialogo() {
         let urls = [
             'https://test-english.com/grammar-points/a1/present-simple-forms-of-to-be/4/',
             'https://test-english.com/grammar-points/b1/future-forms/3/',
-
+            'https://test-english.com/grammar-points/a1/can-cant/3/',
+            'https://test-english.com/grammar-points/a1/present-continuous/3/',
+            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/2/'
         ]
 
         urls.forEach(async(url) => {
@@ -75,12 +77,29 @@ function recuperarQuestoesDialogo() {
                     }
                 });
 
+                let srcImagemExemplo;
+                let srcImagemExercicio;
+
+                $("#exercises").find("img").each((index, img) => {
+                    let imagemLoading = "img/loading.gif";
+                    let srcImagem = $(img).attr('src');
+
+                    if(!srcImagem.includes(imagemLoading)) {
+                        if (index == 0) srcImagemExercicio = srcImagem;
+                        else if (index == 1) srcImagemExemplo = srcImagem;
+                    }
+                });
+
                 let pagina = {
                     url: window.location.href,
                     titulo: $("#the_title_h1").text().replace("\n", ""),
                     texto_exercicio: $($("#exercises").find("h3")[0]).text(),
                     enunciado: $($("#exercises").find("h5")[0]).text(),
-                    exemplo: exemplo,
+                    imagemExercicio: srcImagemExercicio,
+                    exemplo: {
+                        descricao: exemplo,
+                        imagem: srcImagemExemplo
+                    },
                     dicas: $("#exercises").find(".textBox")[0]?.innerHTML,
                     exercicios: []
                 }
