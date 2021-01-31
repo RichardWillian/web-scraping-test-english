@@ -16,7 +16,23 @@ function recuperarQuestoesMultiplaEscolha() {
             'https://test-english.com/grammar-points/a1/adverbs-frequency/2/',
             'https://test-english.com/grammar-points/a1/whose-possessive-s/2/',
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/2/',
-            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/2/'
+            'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/2/',
+            'https://test-english.com/grammar-points/a1/imperative-sit-dont-talk/2/',
+            'https://test-english.com/grammar-points/a1/past-simple-negatives-questions/2/',
+            'https://test-english.com/grammar-points/a1/verbs-infinitive-verbs-ing/2/',
+            'https://test-english.com/grammar-points/a1/would-like/2/',
+            'https://test-english.com/grammar-points/a1/have-got/',
+            'https://test-english.com/grammar-points/a1/a-some-any-countable-uncountable/2/',
+            'https://test-english.com/grammar-points/a1/there-is-there-are/2/',
+            'https://test-english.com/grammar-points/a1/there-it/2/',
+            'https://test-english.com/grammar-points/a1/much-many-lot-little-few/2/',
+            'https://test-english.com/grammar-points/a1/comparative-adjectives/2/',
+            'https://test-english.com/grammar-points/a1/superlative-adjectives/2/',
+            'https://test-english.com/grammar-points/a1/will-and-shall/',
+            'https://test-english.com/grammar-points/a1/adverbs-manner/2/',
+            'https://test-english.com/grammar-points/a1/a-an-the-no-article/2/',
+            'https://test-english.com/grammar-points/a1/conjunctions_and-but-or-so-because/2/',
+            'https://test-english.com/grammar-points/a1/basic-word-order-in-english/2/'
         ]
 
         urls.forEach(async(url) => {
@@ -73,30 +89,36 @@ function recuperarQuestoesMultiplaEscolha() {
                 await delay(4000);
 
                 $(".watupro-choices-columns").each((index, bloco) => {
+                    let $bloco = $(bloco);
+                    let $content = $($bloco.find(".show-question-content")[0]);
+                    let $imagem = $($content.find("img")[0]);
+                    let srcImagem = $imagem.attr('src');
+                
                     let exercicio = {
                         numero: index + 1,
+                        srcImagemQuestao: srcImagem,
                         questao: $(bloco).find(".show-question-content")[0].innerText.split("\n")[1],
                         opcoes: [],
                         explicacao: ""
                     }
-
-                    $(bloco).find(".show-question-choices").find("li").each((i, opcao) => {
+                
+                    $bloco.find(".show-question-choices").find("li").each((i, opcao) => {
                         let $opcao = $(opcao);
-
+                
                         let descricaoOpcao = $opcao[0].innerText.replace("correct", "");
                         let tiposOpcoes = ["a. ", "b. ", "c. ", "d .", "e. ", "f. ", "g. ", "\n"];
-
+                
                         tiposOpcoes.forEach((tipoOpcao) => {
                             descricaoOpcao = descricaoOpcao.replace(tipoOpcao, "");
                         });
-
+                
                         exercicio.opcoes.push({
                             correta: $opcao.hasClass("correct-answer"),
                             descricao: descricaoOpcao
                         });
                     });
-
-                    exercicio.explicacao = $(bloco).find(".watupro-main-feedback")[0].innerHTML;
+                
+                    exercicio.explicacao = $(bloco).find(".watupro-main-feedback")[0]?.innerHTML;
                     pagina.exercicios.push(exercicio);
                 });
 

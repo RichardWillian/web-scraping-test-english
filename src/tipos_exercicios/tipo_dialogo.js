@@ -12,7 +12,9 @@ function recuperarQuestoesDialogo() {
             'https://test-english.com/grammar-points/b1/future-forms/3/',
             'https://test-english.com/grammar-points/a1/can-cant/3/',
             'https://test-english.com/grammar-points/a1/present-continuous/3/',
-            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/2/'
+            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/2/',
+            'https://test-english.com/grammar-points/a1/past-simple-negatives-questions/3/',
+            'https://test-english.com/grammar-points/a1/there-is-there-are/'
         ]
 
         urls.forEach(async(url) => {

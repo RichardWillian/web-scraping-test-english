@@ -10,7 +10,9 @@ function recuperarQuestoesInputCarta() {
         let urls = [
             'https://test-english.com/grammar-points/a2/present-simple-continuous/3/',
             'https://test-english.com/grammar-points/a1/present-simple/4/',
-            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/3/'
+            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/3/',
+            'https://test-english.com/grammar-points/a1/past-simple-regular-irregular/3/',
+            'https://test-english.com/grammar-points/a1/be-going-to-plans-predictions/3/'
         ]
 
         urls.forEach(async(url) => {

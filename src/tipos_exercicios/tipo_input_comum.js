@@ -29,7 +29,33 @@ function recuperarQuestoesInputComum() {
             'https://test-english.com/grammar-points/a1/can-cant/2/',
             'https://test-english.com/grammar-points/a1/present-continuous/',
             'https://test-english.com/grammar-points/a1/present-continuous/2/',
-            'https://test-english.com/grammar-points/a1/imperative-sit-dont-talk/' // Está com um padrão diferente de recuperação de informação
+            'https://test-english.com/grammar-points/a1/imperative-sit-dont-talk/', // Está com um padrão diferente de recuperação de informação
+            'https://test-english.com/grammar-points/a1/imperative-sit-dont-talk/3/', // Está com um padrão diferente de recuperação de informação
+            'https://test-english.com/grammar-points/a1/was-were/2/',
+            'https://test-english.com/grammar-points/a1/was-were/3/',
+            'https://test-english.com/grammar-points/a1/past-simple-regular-irregular/',
+            'https://test-english.com/grammar-points/a1/past-simple-regular-irregular/2/',
+            'https://test-english.com/grammar-points/a1/verbs-infinitive-verbs-ing/3/',
+            'https://test-english.com/grammar-points/a1/would-like/',
+            'https://test-english.com/grammar-points/a1/would-like/3/',
+            'https://test-english.com/grammar-points/a1/have-got/2/',
+            'https://test-english.com/grammar-points/a1/have-got/3/',
+            'https://test-english.com/grammar-points/a1/a-some-any-countable-uncountable/3/',
+            'https://test-english.com/grammar-points/a1/there-is-there-are/3/',
+            'https://test-english.com/grammar-points/a1/there-it/3/',
+            'https://test-english.com/grammar-points/a1/next-to-under-between-in-front-behind-etc/3/',
+            'https://test-english.com/grammar-points/a1/much-many-lot-little-few/3/',
+            'https://test-english.com/grammar-points/a1/comparative-adjectives/',
+            'https://test-english.com/grammar-points/a1/comparative-adjectives/3/',
+            'https://test-english.com/grammar-points/a1/superlative-adjectives/',
+            'https://test-english.com/grammar-points/a1/superlative-adjectives/3/',
+            'https://test-english.com/grammar-points/a1/will-and-shall/2/',
+            'https://test-english.com/grammar-points/a1/will-and-shall/3/',
+            'https://test-english.com/grammar-points/a1/be-going-to-plans-predictions/',
+            'https://test-english.com/grammar-points/a1/be-going-to-plans-predictions/2/',
+            'https://test-english.com/grammar-points/a1/adverbs-manner/3/',
+            'https://test-english.com/grammar-points/a1/conjunctions_and-but-or-so-because/3/',
+            'https://test-english.com/grammar-points/a1/basic-word-order-in-english/3/'
         ]
 
         urls.forEach(async(url) => {

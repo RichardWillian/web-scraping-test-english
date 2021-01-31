@@ -19,7 +19,19 @@ function recuperarQuestoesSelection() {
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-time/',
             'https://test-english.com/grammar-points/a1/at-in-on-prepositions-of-place/',
             'https://test-english.com/grammar-points/a1/can-cant/',
-            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/'
+            'https://test-english.com/grammar-points/a1/present-simple-present-continuous/',
+            'https://test-english.com/grammar-points/a1/was-were/',
+            'https://test-english.com/grammar-points/a1/past-simple-negatives-questions/',
+            'https://test-english.com/grammar-points/a1/verbs-infinitive-verbs-ing/',
+            'https://test-english.com/grammar-points/a1/a-some-any-countable-uncountable/',
+            'https://test-english.com/grammar-points/a1/there-it/',
+            'https://test-english.com/grammar-points/a1/next-to-under-between-in-front-behind-etc/',
+            'https://test-english.com/grammar-points/a1/much-many-lot-little-few/',
+            'https://test-english.com/grammar-points/a1/adverbs-manner/',
+            'https://test-english.com/grammar-points/a1/a-an-the-no-article/',
+            'https://test-english.com/grammar-points/a1/a-an-the-no-article/3/',
+            'https://test-english.com/grammar-points/a1/conjunctions_and-but-or-so-because/',
+            'https://test-english.com/grammar-points/a1/basic-word-order-in-english/'
         ]
 
         
